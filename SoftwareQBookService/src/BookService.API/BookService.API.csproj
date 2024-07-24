@@ -17,4 +17,8 @@
     <ProjectReference Include="..\shared\BookService.Shared\BookService.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ServiceConfigurations\" />
+  </ItemGroup>
+
 </Project>

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace BookService.Application.DependencyConfigurationExtension;
 
-public static class ServiceDependencyConfiguration
+public static class ServiceDependencyConfigurationExtension
 {
     public static IServiceCollection AddServicesDependencyConfiguration(this IServiceCollection services)
     {

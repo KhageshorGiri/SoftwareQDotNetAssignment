@@ -1,4 +1,5 @@
 ﻿using BookService.API.Middlewares;
+using BookService.Application.DependencyConfigurationExtension;
 
 namespace BookService.API.ServiceConfigurations;
 
@@ -36,7 +37,5 @@ public static class HttpServicesPilelineConfiguration
     {
         // Register application layer services
         builder.Services.AddServicesDependencyConfiguration();
-
-
     }
 }

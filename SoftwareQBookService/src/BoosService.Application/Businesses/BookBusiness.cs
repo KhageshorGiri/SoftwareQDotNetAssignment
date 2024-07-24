@@ -3,10 +3,10 @@ using BookService.Domain.Entities;
 using BookService.Domain.IRepositories;
 using BookService.Shared.Enums;
 using BookService.Shared.OperaionResponse;
-using BoosService.Application.Dtos;
-using BoosService.Application.IBusinesses;
+using BookService.Application.Dtos;
+using BookService.Application.IBusinesses;
 
-namespace BoosService.Application.Businesses;
+namespace BookService.Application.Businesses;
 
 public class BookBusiness : IBookBusiness
 {

@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{249CDD5B-02D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.Domain", "src\BookService.Domain\BookService.Domain.csproj", "{38CCD1C0-60FC-4041-A007-0CC00F41F2A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoosService.Application", "src\BoosService.Application\BoosService.Application.csproj", "{A321D9C9-49A1-4704-922A-C5C64A10B47C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.Application", "src\BoosService.Application\BookService.Application.csproj", "{A321D9C9-49A1-4704-922A-C5C64A10B47C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.Infrastructure", "src\BookService.Infrastructure\BookService.Infrastructure.csproj", "{219A9B23-9697-4F87-9EDA-37101CFCFEE3}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.Shared", "src\s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CCB7DFB0-D5A0-41D1-99CF-A309066DAE06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookService.Test", "test\BookService.Test\BookService.Test.csproj", "{7325466A-C8F5-43FD-BCFE-331D8E4C730F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.Test", "test\BookService.Test\BookService.Test.csproj", "{7325466A-C8F5-43FD-BCFE-331D8E4C730F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,15 +1,15 @@
 ﻿using BookService.Domain.IRepositories;
 using BookService.Infrastructure.Repositories;
-using BoosService.Application.Businesses;
-using BoosService.Application.IBusinesses;
+using BookService.Application.Businesses;
+using BookService.Application.IBusinesses;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace BoosService.Application.DependencyConfiguration;
+namespace BookService.Application.DependencyConfigurationExtension;
 
 public static class ServiceDependencyConfiguration
 {
-    public static IServiceCollection AddServicesDIConfiguration(this IServiceCollection services)
+    public static IServiceCollection AddServicesDependencyConfiguration(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

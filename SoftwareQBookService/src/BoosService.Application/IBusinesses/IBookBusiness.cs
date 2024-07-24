@@ -1,7 +1,7 @@
 ﻿using BookService.Shared.OperaionResponse;
-using BoosService.Application.Dtos;
+using BookService.Application.Dtos;
 
-namespace BoosService.Application.IBusinesses;
+namespace BookService.Application.IBusinesses;
 
 public interface IBookBusiness
 {

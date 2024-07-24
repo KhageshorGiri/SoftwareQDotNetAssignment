@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BoosService.Application.Dtos;
+namespace BookService.Application.Dtos;
 
 public record CreateBookDto
 {

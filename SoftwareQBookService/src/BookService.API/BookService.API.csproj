@@ -13,12 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoosService.Application\BoosService.Application.csproj" />
+    <ProjectReference Include="..\BoosService.Application\BookService.Application.csproj" />
     <ProjectReference Include="..\shared\BookService.Shared\BookService.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ServiceConfigurations\" />
   </ItemGroup>
 
 </Project>

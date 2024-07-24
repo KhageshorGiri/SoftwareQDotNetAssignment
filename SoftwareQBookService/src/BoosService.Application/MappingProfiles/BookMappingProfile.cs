@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BookService.Domain.Entities;
-using BoosService.Application.Dtos;
+using BookService.Application.Dtos;
 
-namespace BoosService.Application.MappingProfiles;
+namespace BookService.Application.MappingProfiles;
 
 public class BookMappingProfile : Profile
 {

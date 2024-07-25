@@ -3,6 +3,7 @@ using BookService.Shared.OperaionResponse;
 using BookService.Application.IBusinesses;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookService.API.Controllers;
 
@@ -18,9 +19,9 @@ public class BooksController : ControllerBase
 
     // Get: api/books
     [HttpGet]
-    public async Task<OperationResponse<IEnumerable<BookListDto>>> GetAllBooks(CancellationToken cancellationToken = default)
+    public async Task<OperationResponse<IEnumerable<BookListDto>>> GetAllBooks(int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
-        var result = await _bookService.GetAllBooksAsync(cancellationToken);
+        var result = await _bookService.GetAllBooksAsync(pageNumber, pageSize, cancellationToken);
         return OperationResponse<IEnumerable<BookListDto>>.Success(result.Message, result.Data);
     }
 

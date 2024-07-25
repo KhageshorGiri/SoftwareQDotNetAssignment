@@ -17,10 +17,14 @@ public class BookBusiness : IBookBusiness
         _bookRepository = bookRepository;
         _mapper = mapper;
     }
-    public async Task<OperationResponse<IEnumerable<BookListDto>>> GetAllBooksAsync(CancellationToken cancellationToken = default)
+    public async Task<OperationResponse<IEnumerable<BookListDto>>> GetAllBooksAsync(int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
         var respone = new OperationResponse<IEnumerable<BookListDto>>();
-        var allBooks = await _bookRepository.GetAllBooksAsync(cancellationToken);
+
+        if (pageNumber < 1) pageNumber = 1;
+        if (pageSize < 10) pageSize = 10;
+
+        var allBooks = await _bookRepository.GetAllBooksAsync(pageNumber, pageSize, cancellationToken);
 
         if (allBooks.Data is null)
             return OperationResponse<IEnumerable<BookListDto>>.Failure($"No Data Found");

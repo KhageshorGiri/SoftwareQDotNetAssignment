@@ -14,10 +14,13 @@ public class BookRepository : IBookResepository
         _dbContext = context;
     }
 
-    public async Task<OperationResponse<IEnumerable<Book>>> GetAllBooksAsync(CancellationToken cancellationToken = default)
+    public async Task<OperationResponse<IEnumerable<Book>>> GetAllBooksAsync(int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
         var queryResult = await _dbContext.Books.AsQueryable()
             .AsNoTracking()
+            .OrderBy(b => b.Id) 
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
         return OperationResponse<IEnumerable<Book>>.Success("Success", queryResult);

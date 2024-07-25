@@ -28,6 +28,8 @@ public static class ServiceDependencyConfigurationExtension
     private static IServiceCollection AddBussinessDIConfiguration(IServiceCollection services)
     {
         // Business
+        services.AddScoped<IJwtTokenProvider, JswTokenProvider>();
+        services.AddScoped<IAuthService, AuthsService>();
         services.AddScoped<IBookBusiness, BookBusiness>();
         return services;
     }

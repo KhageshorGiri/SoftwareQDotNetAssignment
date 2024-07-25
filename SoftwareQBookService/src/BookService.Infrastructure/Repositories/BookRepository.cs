@@ -29,64 +29,52 @@ public class BookRepository : IBookResepository
                     .AsNoTracking()
                     .FirstOrDefaultAsync(cancellationToken);
 
+        if(queryResult is null)
+            return OperationResponse<Book>.Failure($"Book with id {id} is not found.");
+
         return OperationResponse<Book>.Success("Success", queryResult);
     }
 
     public async Task<OperationResponse<Book>> AddBookAsync(Book newBook, CancellationToken cancellationToken = default)
     {
         var response = new OperationResponse<Book>();
-        using (var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken))
+        try
         {
-            try
-            {
-                await _dbContext.Books.AddAsync(newBook);
-                await _dbContext.SaveChangesAsync();
-                await transaction.CommitAsync(cancellationToken);
-                return OperationResponse<Book>.Success("New Book added successfully");
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync(cancellationToken);
-                return OperationResponse<Book>.Failure("An error occurred while adding the new book");
-            }
+            await _dbContext.Books.AddAsync(newBook);
+            await _dbContext.SaveChangesAsync();
+            return OperationResponse<Book>.Success("New Book added successfully");
+        }
+        catch (Exception ex)
+        {
+            return OperationResponse<Book>.Failure("An error occurred while adding the new book");
         }
     }
 
     public async Task<OperationResponse<Book>> UpdateBookAsync(Book book, CancellationToken cancellationToken = default)
     {
-        using (var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken))
+        try
         {
-            try
-            {
-                _dbContext.Books.Update(book);
-                await _dbContext.SaveChangesAsync(cancellationToken);
-                await transaction.CommitAsync(cancellationToken);
-                return OperationResponse<Book>.Success("Book updated successfully", book);
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync(cancellationToken);
-                return OperationResponse<Book>.Failure("An error occurred while updating the book");
-            }
+            _dbContext.Books.Update(book);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return OperationResponse<Book>.Success("Book updated successfully", book);
+        }
+        catch (Exception ex)
+        {
+            return OperationResponse<Book>.Failure("An error occurred while updating the book");
         }
     }
 
     public async Task<OperationResponse<Book>> DeleteBookAsync(Book book, CancellationToken cancellationToken = default)
     {
-        using (var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken))
+        try
         {
-            try
-            {
-                _dbContext.Books.Remove(book);
-                await _dbContext.SaveChangesAsync(cancellationToken);
-                await transaction.CommitAsync(cancellationToken);
-                return OperationResponse<Book>.Success("Book Deleted successfully");
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync(cancellationToken);
-                return OperationResponse<Book>.Failure("An error occurred while deleting the book");
-            }
+            _dbContext.Books.Remove(book);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return OperationResponse<Book>.Success("Book Deleted successfully");
+        }
+        catch (Exception ex)
+        {
+            return OperationResponse<Book>.Failure("An error occurred while deleting the book");
         }
     }
 }

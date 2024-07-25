@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookService.Application.Dtos;
+using BookService.Shared.OperaionResponse;
+using BookService.Application.IBusinesses;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 
 namespace BookService.API.Controllers;
 
@@ -6,35 +10,49 @@ namespace BookService.API.Controllers;
 [ApiController]
 public class BooksController : ControllerBase
 {
-    // GET: api/<BooksController>
+    private readonly IBookBusiness _bookService;
+    public BooksController(IBookBusiness bookService)
+    {
+        _bookService = bookService;
+    }
+
+    // Get: api/books
     [HttpGet]
-    public IEnumerable<string> Get()
+    public async Task<OperationResponse<IEnumerable<BookListDto>>> GetAllBooks(CancellationToken cancellationToken = default)
     {
-        return new string[] { "value1", "value2" };
+        var result = await _bookService.GetAllBooksAsync(cancellationToken);
+        return OperationResponse<IEnumerable<BookListDto>>.Success(result.Message, result.Data);
     }
 
-    // GET api/<BooksController>/5
+    // GET: api/books/{id}
     [HttpGet("{id}")]
-    public string Get(int id)
+    public async Task<OperationResponse<BookListDto>> GetBookById(int id, CancellationToken cancellationToken = default)
     {
-        return "value";
+        var result = await _bookService.GetBookByIdAsync(id, cancellationToken);
+        return OperationResponse<BookListDto>.Success(result.Message, result.Data);
     }
 
-    // POST api/<BooksController>
+    // POST: api/books
     [HttpPost]
-    public void Post([FromBody] string value)
+    public async Task<OperationResponse> Post([FromBody] CreateBookDto newBook, CancellationToken cancellationToken = default)
     {
+        var result = await _bookService.AddBookAsync(newBook, cancellationToken);
+        return OperationResponse.Success(result.Message);
     }
 
-    // PUT api/<BooksController>/5
+    // PUT: api/books/[id}
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    public async Task<OperationResponse> Put(int id, [FromBody] UpdateBookDto book, CancellationToken cancellationToken = default)
     {
+        var result = await _bookService.UpdateBookAsync(id, book, cancellationToken);
+        return OperationResponse.Success(result.Message);
     }
 
-    // DELETE api/<BooksController>/5
+    // DELETE: api/books/{id}
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public async Task<OperationResponse> Delete(int id, CancellationToken cancellationToken = default)
     {
+        var result = await _bookService.DeleteBookAsync(id, cancellationToken);
+        return OperationResponse.Success(result.Message);
     }
 }

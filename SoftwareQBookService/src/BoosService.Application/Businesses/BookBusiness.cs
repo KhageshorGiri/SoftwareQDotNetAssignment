@@ -69,7 +69,7 @@ public class BookBusiness : IBookBusiness
         if (existingBookData.Data is null)
             return OperationResponse<UpdateBookDto>.Failure($"Book with id {id} is not found.");
 
-        var existingBookUpdatedValue = _mapper.Map<Book>(bookToUpdate);
+        var existingBookUpdatedValue = _mapper.Map(bookToUpdate, existingBookData.Data);
         existingBookUpdatedValue.LastUpdatedBy = 1; // TODO: Change by real user id
         existingBookUpdatedValue.LastUpdatedOn = DateTime.UtcNow;
 

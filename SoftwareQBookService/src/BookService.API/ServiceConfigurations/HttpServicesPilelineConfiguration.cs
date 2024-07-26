@@ -32,9 +32,9 @@ public static class HttpServicesPilelineConfiguration
         // Add CORS policy
         builder.Services.AddCors(options =>
         {
-            options.AddPolicy("AllowSpecificOrigin",
+            options.AddPolicy("BookServiceCorsPolicy",
                 builder => builder
-                    .WithOrigins("https://localhost:7141/") // Specify allowed domains
+                    .WithOrigins("http://localhost:7141") // Specify allowed domains
                     .AllowAnyHeader()
                     .AllowAnyMethod());
         });

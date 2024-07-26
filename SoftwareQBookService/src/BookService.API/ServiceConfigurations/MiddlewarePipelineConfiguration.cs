@@ -23,6 +23,8 @@ public static class MiddlewarePipelineConfiguration
         app.UseAuthorization();
         app.MapControllers();
 
+        app.UseCors("BookServiceCorsPolicy");
+
     }
 
     private static void SwaggerMiddlewareConfiguration(WebApplication app)

@@ -41,7 +41,7 @@ public static class HttpServicesPilelineConfiguration
         {
             options.AddPolicy("BookServiceCorsPolicy",
                 builder => builder
-                    .WithOrigins("http://localhost:7141") // Specify allowed domains
+                    .WithOrigins("https://localhost:7141") // Specify allowed domains
                     .AllowAnyHeader()
                     .AllowAnyMethod());
         });

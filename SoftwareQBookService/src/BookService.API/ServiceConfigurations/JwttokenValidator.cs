@@ -27,7 +27,7 @@ public static class JwttokenValidator
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = true,
+                ValidateIssuer = false,
                 ValidateAudience = false,
                 ValidateLifetime = true
             };

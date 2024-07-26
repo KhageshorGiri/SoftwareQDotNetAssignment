@@ -12,11 +12,11 @@ Ensure you have the following installed:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/KhageshorGiri/SoftwareQAngularAssignment.git
+   https://github.com/KhageshorGiri/SoftwareQDotNetAssignment.git
 
 2. **Navigate into the project directory:**
      ```bash
-     cd SoftwareQAngularAssignment
+     cd SoftwareQDotNetAssignment
 
 3. **Restore project dependencies:**
    ```bash

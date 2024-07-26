@@ -12,12 +12,12 @@ Ensure you have the following installed:
 1. **Clone the repository:**
 
    ```bash
-   https://github.com/KhageshorGiri/SoftwareQDotNetAssignment.git
+   git clone https://github.com/KhageshorGiri/SoftwareQDotNetAssignment.git
 
 2. **Navigate into the project directory:**
      ```bash
-     cd SoftwareQDotNetAssignment
-
+     cd SoftwareQDotNetAssignment/SoftwareQBookService/src/BookService.API
+     
 3. **Restore project dependencies:**
    ```bash
    dotnet restore

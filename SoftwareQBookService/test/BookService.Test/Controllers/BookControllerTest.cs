@@ -40,7 +40,7 @@ public class BooksControllerTest
         Assert.NotNull(result.Data);
         Assert.Equal(ResponseTypeOption.Success, result.ResponseType);
         Assert.IsType<OperationResponse<BookListDto>>(result);
-        Assert.IsType<IEnumerable<BookListDto>>(result.Data);
+        Assert.IsAssignableFrom<IEnumerable<BookListDto>>(result.Data);
     }
 
     [Fact]
@@ -104,6 +104,45 @@ public class BooksControllerTest
         Assert.Equal(ResponseTypeOption.Failed, result.ResponseType);
         Assert.NotEmpty(result.Message);
         Assert.NotNull(result.Message);
+    }
+
+    [Fact]
+    public async Task Delete_WithInvalidBookId_ReturnsOperationResponseFailed()
+    {
+        // Arrange
+        var cancellationToken = new CancellationToken();
+        var expectedOutput = OperationResponse.Failure("Failed");
+        _mockBookService.Setup(service => service.DeleteBookAsync(It.IsAny<int>(), cancellationToken))
+                          .ReturnsAsync(expectedOutput); // Assuming product does not exist
+
+        // Act
+        var result = await _controller.Delete(It.IsAny<int>(), cancellationToken);
+
+        // Assert
+        // Assert
+        Assert.Equal(ResponseTypeOption.Failed, result.ResponseType);
+        Assert.NotEmpty(result.Message);
+        Assert.NotNull(result.Message);
+    }
+
+    [Fact]
+    public async Task Delete_WithValidBookId_ReturnsOperationResponseSuccess()
+    {
+        // Arrange
+        var cancellationToken = new CancellationToken();
+        var expectedOutput = OperationResponse.Success("Sucess");
+
+        _mockBookService.Setup(service => service.DeleteBookAsync(It.IsAny<int>(), cancellationToken))
+                          .ReturnsAsync(expectedOutput);
+
+        // Act
+        var result = await _controller.Delete(It.IsAny<int>(), cancellationToken);
+
+        // Assert
+        Assert.Null(result.Data);
+        Assert.NotEmpty(result.Message);
+        Assert.Equal(ResponseTypeOption.Success, result.ResponseType);
+        Assert.IsType<OperationResponse>(result);
     }
 
 }

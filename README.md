@@ -2,6 +2,14 @@
 
 This is an .net Core BookService application for performing CRUD operation along wiht jwt authentication and authorization
 
+## Process Flow
+- [ ] Run the project.
+- [ ] Register you account
+- [ ] Login through your account and get JWT toke
+- [ ] Add token to Authorization header
+- [ ] After this you can perform CRUD Operation in BookService
+
+
 ## Prerequisites
 
 Ensure you have the following installed:
@@ -32,4 +40,12 @@ Ensure you have the following installed:
    ```bash
    dotnet run
 
-**Now open : https://localhost:7141 in you browser.**
+**Now open : https://localhost:7141/swagger/index.html in you browser.**
+**You can alos import collection in postman**
+
+
+**Thank You**
+
+
+
+

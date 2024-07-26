@@ -19,7 +19,7 @@ public class BooksController : ControllerBase
 
     // Get: api/books
     [HttpGet]
-    [Authorize]
+    [Authorize(Roles = "Admin, User")]
 
     public async Task<OperationResponse<IEnumerable<BookListDto>>> GetAllBooks(int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
@@ -28,6 +28,7 @@ public class BooksController : ControllerBase
 
     // GET: api/books/{id}
     [HttpGet("{id}")]
+    [Authorize(Roles = "Admin, User")]
     public async Task<OperationResponse<BookListDto>> GetBookById(int id, CancellationToken cancellationToken = default)
     {
         return await _bookService.GetBookByIdAsync(id, cancellationToken);
@@ -35,6 +36,7 @@ public class BooksController : ControllerBase
 
     // POST: api/books
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<OperationResponse> Post([FromBody] CreateBookDto newBook, CancellationToken cancellationToken = default)
     {
         var result =  await _bookService.AddBookAsync(newBook, cancellationToken);
@@ -47,6 +49,7 @@ public class BooksController : ControllerBase
 
     // PUT: api/books/[id}
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<OperationResponse> Put(int id, [FromBody] UpdateBookDto book, CancellationToken cancellationToken = default)
     {
         var result = await _bookService.UpdateBookAsync(id, book, cancellationToken);
@@ -59,6 +62,7 @@ public class BooksController : ControllerBase
 
     // DELETE: api/books/{id}
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<OperationResponse> Delete(int id, CancellationToken cancellationToken = default)
     {
         var result = await _bookService.DeleteBookAsync(id, cancellationToken);

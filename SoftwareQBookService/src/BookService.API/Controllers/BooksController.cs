@@ -2,7 +2,6 @@
 using BookService.Shared.OperaionResponse;
 using BookService.Application.IBusinesses;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
 using Microsoft.AspNetCore.Authorization;
 using BookService.Shared.Enums;
 
@@ -20,6 +19,8 @@ public class BooksController : ControllerBase
 
     // Get: api/books
     [HttpGet]
+    [Authorize]
+
     public async Task<OperationResponse<IEnumerable<BookListDto>>> GetAllBooks(int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
         return await _bookService.GetAllBooksAsync(pageNumber, pageSize, cancellationToken);

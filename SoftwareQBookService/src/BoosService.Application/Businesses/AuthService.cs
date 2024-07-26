@@ -67,7 +67,8 @@ public class AuthsService : IAuthService
             Email = user.Email,
             ID = user.Id,
             Name = user.Name,
-            PhoneNumber = user.PhoneNumber
+            PhoneNumber = user.PhoneNumber,
+            Role = string.Join(",", roles)
         };
 
         LoginResponseDto loginResponseDto = new LoginResponseDto()
@@ -96,6 +97,7 @@ public class AuthsService : IAuthService
             var result = await _userManager.CreateAsync(user, registrationRequestDto.Password);
             if (result.Succeeded)
             {
+                await AssignRole(user.Email, registrationRequestDto.Role);
                 var userToReturn = _db.ApplicationUsers.First(u => u.UserName == registrationRequestDto.Email);
 
                 UserDto userDto = new()

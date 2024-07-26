@@ -14,10 +14,22 @@ public static class DbConfiguration
                     .UseInMemoryDatabase("InMemoryDb"));
 
         // Add Identity services
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        {
+            options.Password.RequiredLength = 6;
+            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequireDigit = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireLowercase = true;
+        })
             .AddEntityFrameworkStores<BookServiceDbContext>()
             .AddDefaultTokenProviders();
 
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+            options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
+        });
     }
 
     

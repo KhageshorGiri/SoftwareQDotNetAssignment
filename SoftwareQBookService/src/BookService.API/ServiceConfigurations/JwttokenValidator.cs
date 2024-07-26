@@ -17,7 +17,9 @@ public static class JwttokenValidator
         {
             option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(option =>
+            option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+            .AddJwtBearer(option =>
         {
             option.SaveToken = true;
             option.RequireHttpsMetadata = false;
@@ -25,7 +27,7 @@ public static class JwttokenValidator
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
+                ValidateIssuer = true,
                 ValidateAudience = false,
                 ValidateLifetime = true
             };

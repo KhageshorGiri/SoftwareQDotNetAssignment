@@ -29,7 +29,7 @@ public class JswTokenProvider : IJwtTokenProvider
                 new Claim(JwtRegisteredClaimNames.Name, applicationUser.UserName)
             };
 
-        claimList.AddRange(roles.Select(role => new Claim("Role", role)));
+        claimList.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {

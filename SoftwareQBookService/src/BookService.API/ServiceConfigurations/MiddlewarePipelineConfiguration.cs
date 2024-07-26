@@ -20,6 +20,7 @@ public static class MiddlewarePipelineConfiguration
         SwaggerMiddlewareConfiguration(app);
 
         app.UseHttpsRedirection();
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
 
@@ -33,7 +34,10 @@ public static class MiddlewarePipelineConfiguration
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book Service API V1");
+            });
         }
     }
 

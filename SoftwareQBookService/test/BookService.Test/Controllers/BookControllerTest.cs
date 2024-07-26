@@ -3,6 +3,7 @@ using BookService.Application.Dtos;
 using BookService.Application.IBusinesses;
 using BookService.Shared.Enums;
 using BookService.Shared.OperaionResponse;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace BookService.Test.Controllers;
@@ -32,12 +33,14 @@ public class BooksControllerTest
             .ReturnsAsync(expectedResponse);
 
         // Act
-        var result = await _controller.GetBookById(bookId) as OperationResponse;
+        var result = await _controller.GetBookById(bookId);
 
         // Assert
+        Assert.NotNull(result);
         Assert.NotNull(result.Data);
         Assert.Equal(ResponseTypeOption.Success, result.ResponseType);
-        Assert.IsType<OperationResponse<BookListDto>>(result.Data);
+        Assert.IsType<OperationResponse<BookListDto>>(result);
+        Assert.IsType<IEnumerable<BookListDto>>(result.Data);
     }
 
     [Fact]
@@ -51,12 +54,56 @@ public class BooksControllerTest
             .ReturnsAsync(expectedResponse);
 
         // Act
-        var result = await _controller.GetBookById(bookId) as OperationResponse;
+        var result = await _controller.GetBookById(bookId);
 
         // Assert
         Assert.NotNull(result.Message);
-        Assert.Equal(ResponseTypeOption.Failed, result.ResponseType);
         Assert.Null(result.Data);
+        Assert.Equal(ResponseTypeOption.Failed, result.ResponseType);
+        Assert.IsType<OperationResponse<BookListDto>>(result);
+    }
+
+    [Fact]
+    public async Task Post_WithBookToAdd_ReturnOperationResponseSucces()
+    {
+        // Arrange
+        var cancellationToken = new CancellationToken();
+        var bookDto = new CreateBookDto {Title = "Test Book", Author = "Ram", Genre = "Novel", PublicationYear = 2023 };
+        var expectedResponse = OperationResponse<CreateBookDto>.Success("Book created successfully.", bookDto);
+
+        _mockBookService.Setup(service => service.AddBookAsync(bookDto, cancellationToken))
+            .ReturnsAsync(expectedResponse);
+
+        // Act
+        var actionResult = await _controller.Post(bookDto, cancellationToken);
+
+        // Assert
+        Assert.Null(actionResult.Data);
+        Assert.Equal(ResponseTypeOption.Success, actionResult.ResponseType);
+        Assert.IsType<OperationResponse>(actionResult);
+    }
+
+    [Fact]
+    public async Task Post_WithInvalidBook_ReturnsOperationResponseFailed()
+    {
+        // Arrange
+        var cancellationToken = new CancellationToken();
+        var bookDto = new CreateBookDto {Title = "", Author = "Ram", Genre = "Novel", PublicationYear = 2023 };
+
+        _controller.ModelState.AddModelError("Title", "Title is required");
+
+        var expectedResponse = OperationResponse<CreateBookDto>.Failure("Failed");
+
+        _mockBookService.Setup(service => service.AddBookAsync(bookDto, cancellationToken))
+            .ReturnsAsync(expectedResponse);
+
+        // Act
+        var result = await _controller.Post(bookDto, cancellationToken);
+
+        // Assert
+        Assert.Equal(ResponseTypeOption.Failed, result.ResponseType);
+        Assert.NotEmpty(result.Message);
+        Assert.NotNull(result.Message);
     }
 
 }
